@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--App style Colors-->
+    <color name="colorPrimary">#344955</color>
+    <color name="colorPrimaryDark">#232F34</color>
+    <color name="colorAccent">#F9AA33</color>
+    <color name="colorBackground">#1F2122</color>
+
+    <!--Basic Colors-->
+    <color name="colorSecondaryLight">#ffdc65</color>
+    <color name="colorSecondaryDark">#c17b00</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <!--transparent color bg-->
+</resources>
