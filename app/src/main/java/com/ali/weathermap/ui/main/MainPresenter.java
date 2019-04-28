@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import com.ali.weathermap.data.network.ApiModel;
 import com.ali.weathermap.data.network.ApiModelListener;
 import com.ali.weathermap.data.network.LoadingImage;
+import com.ali.weathermap.data.network.entity.ForecastListResponse;
 import com.ali.weathermap.data.network.entity.WeatherListResponse;
 import com.ali.weathermap.data.network.entity.weather.CurrentWeather;
 import com.ali.weathermap.data.network.entity.weather.WeatherDetails;
@@ -38,7 +39,7 @@ public class MainPresenter implements MainMvpPresenter {
     }
 
     @Override
-    public void requestDataFromServer(String endPoint, Map<String, Object> queries) {
+    public void requestWeatherFromServer(String endPoint, Map<String, Object> queries) {
         apiModel.getObjects(endPoint, queries, new ApiModelListener.OnFinishedListener() {
             @Override
             public void onFinished(Object responseObjects) {
@@ -55,12 +56,32 @@ public class MainPresenter implements MainMvpPresenter {
                 weather.setDate(response.getDate());
                 weather.setTemp(String.valueOf(Math.round(weatherDetails.getTemp())));
                 weather.setWind(String.valueOf(wind.getSpeed()));
+                weather.setMax(String.valueOf(Math.round(weatherDetails.getTempMax())));
+                weather.setMin(String.valueOf(Math.round(weatherDetails.getTempMin())));
                 for (CurrentWeather currentWeather : currentWeatherList) {
                     weather.setCloudiness(currentWeather.getDescription());
                     weather.setIcon(currentWeather.getIcon());
 
                 }
                 mainView.displayDataToView(weather);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void requestForecastFromServer(String endPoint, Map<String, Object> queries) {
+        apiModel.getObjects(endPoint, queries, new ApiModelListener.OnFinishedListener() {
+            @Override
+            public void onFinished(Object responseObjects) {
+                String json = new Gson().toJson(responseObjects);
+                ForecastListResponse response = new Gson().fromJson(
+                        json, ForecastListResponse.class);
+                Log.i(TAG, "onFinished: forecast " + response);
             }
 
             @Override

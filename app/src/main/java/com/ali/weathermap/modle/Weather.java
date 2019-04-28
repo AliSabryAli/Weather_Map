@@ -9,6 +9,24 @@ public class Weather {
     private String wind;
     private String date;
     private String icon;
+    private String min;
+    private String Max;
+
+    public String getMin() {
+        return min;
+    }
+
+    public void setMin(String min) {
+        this.min = min;
+    }
+
+    public String getMax() {
+        return Max;
+    }
+
+    public void setMax(String max) {
+        Max = max;
+    }
 
     public String getIcon() {
         return icon;

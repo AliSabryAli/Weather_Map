@@ -4,4 +4,8 @@
     <string name="wind">Wind</string>
     <string name="humidity">Humidity</string>
     <string name="pressure">Pressure</string>
+    <string name="location">my location</string>
+    <string name="search">search</string>
+    <string name="share">Share</string>
+    <string name="setting">Settinges</string>
 </resources>

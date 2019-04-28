@@ -22,7 +22,6 @@ public class LoadingImage {
         Glide.with(context)
                 .load(NetworkUtils.BASE_URL_ICON + icon)
                 .apply(new RequestOptions().fitCenter())
-                .placeholder(R.drawable.ic_launcher)
                 .error(R.drawable.ic_launcher)
                 .listener(new RequestListener<Drawable>() {
                     @Override

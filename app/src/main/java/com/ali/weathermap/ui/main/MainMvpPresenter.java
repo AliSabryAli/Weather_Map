@@ -10,7 +10,9 @@ import java.util.Map;
  */
 
 public interface MainMvpPresenter {
-    void requestDataFromServer(String endPoint, Map<String, Object> queries);
+    void requestWeatherFromServer(String endPoint, Map<String, Object> queries);
+
+    void requestForecastFromServer(String endPoint, Map<String, Object> queries);
 
     void requestImageFromServer(ImageView imageWeatherIcon, ProgressBar progressBar);
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/button_height_short"
+        android:height="@dimen/button_height_short"
+        android:drawable="@drawable/temp_up"
+
+        android:gravity="center">
+
+    </item>
+</layer-list>

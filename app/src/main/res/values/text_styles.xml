@@ -10,23 +10,21 @@
     </style>
     <!--Temp -->
     <style name="LargeText" parent="AppTheme">
-        <item name="android:textSize">@dimen/font_huge</item>
-        <item name="android:padding">@dimen/spacing_tiny</item>
+        <item name="android:textSize">@dimen/font_very_huge</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorSecondaryLight</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
     <!--Details text-->
     <style name="SmallNormalText" parent="AppTheme">
-        <item name="android:textSize">@dimen/font_normal</item>
-        <item name="android:padding">@dimen/spacing_tiny</item>
+        <item name="android:textSize">@dimen/font_larger</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="SmallBoldText" parent="AppTheme">
-        <item name="android:textSize">@dimen/font_normal</item>
-        <item name="android:padding">@dimen/spacing_tiny</item>
+        <item name="android:textSize">@dimen/font_larger</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textStyle">bold</item>
 
     </style>
@@ -39,10 +37,9 @@
     </style>
     <!--Date -->
     <style name="DateText" parent="AppTheme">
-        <item name="android:textSize">@dimen/font_larger</item>
-        <item name="android:padding">@dimen/spacing_tiny</item>
+        <item name="android:textSize">@dimen/font_xlarge</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorSecondaryLight</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 </resources>
