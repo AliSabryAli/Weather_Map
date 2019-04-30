@@ -27,6 +27,7 @@
     <dimen name="card_larger">200dp</dimen>
     <dimen name="card_large">150dp</dimen>
     <dimen name="card_normal">110dp</dimen>
+    <dimen name="card_med">80dp</dimen>
     <dimen name="card_small">60dp</dimen>
     <dimen name="card_tiny">20dp</dimen>
 </resources>

@@ -43,11 +43,17 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tvCardDateId)
-        TextView tvDate;
-        @BindView(R.id.tvCardTempId)
-        TextView tvTemp;
+        TextView tvDateCard;
+        @BindView(R.id.tvCardDiscId)
+        TextView tvDisc;
+        @BindView(R.id.progressBarCardId)
+        TextView progressCard;
+        @BindView(R.id.tvCardMaxTempId)
+        TextView tvMaxTemp;
+        @BindView(R.id.tvCardMinTempId)
+        TextView tvMinTemp;
         @BindView(R.id.imgCardImageId)
-        ImageView img;
+        ImageView imgCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

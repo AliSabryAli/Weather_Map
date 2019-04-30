@@ -30,10 +30,15 @@
     </style>
 
     <!--Card Text-->
-    <style name="CardText" parent="AppTheme">
+    <style name="CardTextNormal" parent="AppTheme">
         <item name="android:textSize">@dimen/font_large</item>
         <item name="android:padding">@dimen/spacing_small</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CardTextLarge" parent="AppTheme">
+        <item name="android:textSize">@dimen/font_larger</item>
+        <item name="android:textStyle">normal</item>
     </style>
     <!--Date -->
     <style name="DateText" parent="AppTheme">
