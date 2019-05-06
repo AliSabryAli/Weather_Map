@@ -14,7 +14,7 @@ public interface MainMvpPresenter {
 
     void requestForecastFromServer(String endPoint, Map<String, Object> queries);
 
-    void requestImageFromServer(ImageView imageWeatherIcon, ProgressBar progressBar);
+    void requestImageFromServer(ImageView imageWeatherIcon, ProgressBar progressBar, String icon);
 
     void onDestroy();
 }

@@ -105,8 +105,8 @@ public class WeatherListResponse {
         this.clouds = clouds;
     }
 
-    public String getDate() {
-        return Constants.getDate(date);
+    public String getDate(String pattern) {
+        return Constants.getDate(date, pattern);
     }
 
     public void setDate(long date) {

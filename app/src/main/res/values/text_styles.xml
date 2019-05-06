@@ -2,11 +2,9 @@
 <resources>
     <!--City Label Text-->
     <style name="MedText" parent="AppTheme">
-        <item name="android:textSize">@dimen/font_xlarge</item>
-        <item name="android:padding">@dimen/spacing_tiny</item>
+        <item name="android:textSize">@dimen/font_larger</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">@drawable/city_txt_shape</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
     <!--Temp -->
     <style name="LargeText" parent="AppTheme">
@@ -44,7 +42,7 @@
     <style name="DateText" parent="AppTheme">
         <item name="android:textSize">@dimen/font_xlarge</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 </resources>

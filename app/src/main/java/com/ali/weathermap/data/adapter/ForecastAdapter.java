@@ -1,25 +1,32 @@
 package com.ali.weathermap.data.adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ali.weathermap.R;
 import com.ali.weathermap.modle.Forecast;
+import com.ali.weathermap.ui.main.MainPresenter;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
-    List<Forecast> forecasts;
+    private List<Forecast> forecasts;
+    private MainPresenter presenter;
 
-    public ForecastAdapter(List<Forecast> forecasts) {
+    public ForecastAdapter(List<Forecast> forecasts, MainPresenter presenter) {
         this.forecasts = forecasts;
+        this.presenter = presenter;
     }
 
     @Override
@@ -33,7 +40,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public void onBindViewHolder(ForecastAdapter.ViewHolder viewHolder, int i) {
         Forecast forecast = forecasts.get(i);
-
+        viewHolder.tvDateCard.setText(forecast.getDate());
+        viewHolder.tvMaxTemp.setText(forecast.getMax());
+        viewHolder.tvMinTemp.setText(forecast.getMin());
+        viewHolder.tvDisc.setText(forecast.getDescription());
+        presenter.requestImageFromServer(viewHolder.imgCard, viewHolder.progressCard, forecast.getIcon());
     }
 
     @Override
@@ -47,7 +58,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         @BindView(R.id.tvCardDiscId)
         TextView tvDisc;
         @BindView(R.id.progressBarCardId)
-        TextView progressCard;
+        ProgressBar progressCard;
         @BindView(R.id.tvCardMaxTempId)
         TextView tvMaxTemp;
         @BindView(R.id.tvCardMinTempId)
@@ -57,7 +68,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            ButterKnife.bind(this, itemView);
         }
     }
 }

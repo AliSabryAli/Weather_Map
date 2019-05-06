@@ -2,7 +2,11 @@ package com.ali.weathermap.ui.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -10,10 +14,13 @@ import android.widget.TextView;
 
 import com.ali.weathermap.Enviroment;
 import com.ali.weathermap.R;
+import com.ali.weathermap.data.adapter.ForecastAdapter;
 import com.ali.weathermap.data.network.Queries;
+import com.ali.weathermap.modle.Forecast;
 import com.ali.weathermap.modle.Weather;
 import com.ali.weathermap.utils.NetworkUtils;
 
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -43,10 +50,12 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
     ImageView imageWeatherIcon;
     @BindView(R.id.toolBarId)
     Toolbar toolbar;
-
+    @BindView(R.id.recyclerViewId)
+    RecyclerView recyclerView;
     private MainPresenter presenter;
     private Map<String, Object> queries;
-
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private ForecastAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,25 +70,39 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
         Enviroment.configure();
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        recyclerView.setHasFixedSize(true);
+
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.scrollToPosition(0);
 
         presenter = new MainPresenter(this);
-        queries = Queries.getQueriesMap("London", "metric");
+        queries = Queries.getQueriesMap("Dubai", "metric");
         presenter.requestWeatherFromServer(NetworkUtils.END_POINT_WEATHER, queries);
         presenter.requestForecastFromServer(NetworkUtils.END_POINT_FORECAST, queries);
     }
 
     @Override
     public void displayDataToView(Weather weather) {
-        presenter.requestImageFromServer(imageWeatherIcon, progressBar);
+        presenter.requestImageFromServer(imageWeatherIcon, progressBar, weather.getIcon());
         toolbar.setTitle(weather.getName());
         tvCloudes.setText(weather.getCloudiness());
         tvHumidity.setText(weather.getHumidity() + " %");
         tvTemp.setText(weather.getTemp() + " °C");
         tvWind.setText(weather.getWind() + " m/s");
-        tvMaxTemp.setText(weather.getMax() );
-        tvMinTemp.setText(weather.getMin() );
+        tvMaxTemp.setText(weather.getMax() + "°");
+        tvMinTemp.setText(weather.getMin() + "°");
         tvDate.setText(weather.getDate());
 
+    }
+
+    @Override
+    public void setDataToRecyclerView(List<Forecast> forecastList) {
+        adapter = new ForecastAdapter(forecastList, presenter);
+        recyclerView.setAdapter(adapter);
+        Log.i(TAG, "setDataToRecyclerView: " + forecastList);
+//            recyclerView.notify();
     }
 
     @Override

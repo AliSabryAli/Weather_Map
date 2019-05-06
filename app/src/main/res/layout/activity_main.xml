@@ -25,6 +25,7 @@
         app:cardCornerRadius="@dimen/spacing_tiny"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
+
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="@id/toolBarId"
         app:layout_constraintStart_toStartOf="@id/toolBarId"
@@ -33,6 +34,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:background="@color/colorPrimaryDark"
             android:padding="@dimen/spacing_normal">
             <!--Date-->
@@ -40,17 +42,17 @@
                 android:id="@+id/tvDateId"
                 style="@style/DateText"
                 android:layout_width="@dimen/card_larger"
-                android:layout_height="@dimen/button_height_short"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
-                android:text="28-04-2019" />
+                android:text="TUS, APR 5" />
             <!--Temp-->
             <TextView
                 android:id="@+id/tvTempId"
                 style="@style/LargeText"
                 android:layout_width="@dimen/card_larger"
-                android:layout_height="@dimen/card_large"
+                android:layout_height="@dimen/card_normal"
                 android:layout_below="@id/tvDateId"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
@@ -95,9 +97,9 @@
             <!--Description-->
             <TextView
                 android:id="@+id/tvCloudsId"
-                style="@style/SmallBoldText"
+                style="@style/SmallNormalText"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height_short"
+                android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/tvDateId"
                 android:layout_toRightOf="@id/tvDateId"
                 android:gravity="center"
@@ -115,7 +117,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center">
 
                     <FrameLayout>
@@ -143,7 +145,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:gravity="center">
 
                     <TextView
@@ -160,7 +162,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:gravity="center">
 
                     <TextView
@@ -180,7 +182,7 @@
     </android.support.v7.widget.CardView>
     <!--Forecast-->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
