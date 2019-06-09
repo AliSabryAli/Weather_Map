@@ -1,13 +1,17 @@
 package com.ali.weathermap.ui.main;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
         recyclerView.scrollToPosition(0);
 
         presenter = new MainPresenter(this);
-        queries = Queries.getQueriesMap("Dubai", "metric");
+        queries = Queries.getQueriesMap("london", "metric");
         presenter.requestWeatherFromServer(NetworkUtils.END_POINT_WEATHER, queries);
         presenter.requestForecastFromServer(NetworkUtils.END_POINT_FORECAST, queries);
     }
@@ -118,6 +122,17 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.miSearchId);
+
+        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = null;
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
+        }
         return true;
     }
 }

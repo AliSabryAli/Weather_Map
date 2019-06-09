@@ -26,7 +26,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
 
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewId"
         app:layout_constraintEnd_toEndOf="@id/toolBarId"
         app:layout_constraintStart_toStartOf="@id/toolBarId"
         app:layout_constraintTop_toBottomOf="@id/toolBarId">

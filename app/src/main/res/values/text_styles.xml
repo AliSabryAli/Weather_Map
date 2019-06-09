@@ -30,8 +30,7 @@
     <!--Card Text-->
     <style name="CardTextNormal" parent="AppTheme">
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:padding">@dimen/spacing_small</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CardTextLarge" parent="AppTheme">
