@@ -17,6 +17,8 @@ public interface MainMvpView {
 
     void setDataToRecyclerView(List<Forecast> forecastList);
 
+    void showMsg(String msg);
+
     void showProgress();
 
     void hideProgress();

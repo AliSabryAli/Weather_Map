@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ali.weathermap.Enviroment;
 import com.ali.weathermap.R;
@@ -123,16 +124,30 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.miSearchId);
+        final MenuItem searchItem = menu.findItem(R.id.miSearchId);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchView.clearFocus();
+                searchItem.collapseActionView();
+                queries = Queries.getQueriesMap(s, "metric");
+                presenter.requestWeatherFromServer(NetworkUtils.END_POINT_WEATHER, queries);
+                presenter.requestForecastFromServer(NetworkUtils.END_POINT_FORECAST, queries);
+                return false;
+            }
 
-        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
-        }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
         return true;
+    }
+
+    @Override
+    public void showMsg(String msg) {
+        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 }

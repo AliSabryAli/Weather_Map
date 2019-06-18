@@ -7,6 +7,8 @@ public interface ApiModelListener {
     interface OnFinishedListener {
         void onFinished(Object responseObjects);
 
+        void onError(String msg);
+
         void onFailure(Throwable t);
     }
 

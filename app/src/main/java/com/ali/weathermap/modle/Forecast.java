@@ -5,10 +5,19 @@ public class Forecast {
     private String icon;
     private String min;
     private String Max;
+    private String hours;
     private String description;
 
     public String getDescription() {
         return description;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 
     public void setDescription(String description) {

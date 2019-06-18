@@ -43,6 +43,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         viewHolder.tvDateCard.setText(forecast.getDate());
         viewHolder.tvMaxTemp.setText(forecast.getMax());
         viewHolder.tvMinTemp.setText(forecast.getMin());
+        viewHolder.tvHours.setText(forecast.getHours());
         viewHolder.tvDisc.setText(forecast.getDescription());
         presenter.requestImageFromServer(viewHolder.imgCard, viewHolder.progressCard, forecast.getIcon());
     }
@@ -63,6 +64,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         TextView tvMaxTemp;
         @BindView(R.id.tvCardMinTempId)
         TextView tvMinTemp;
+        @BindView(R.id.tvCardHoursId)
+        TextView tvHours;
         @BindView(R.id.imgCardImageId)
         ImageView imgCard;
 

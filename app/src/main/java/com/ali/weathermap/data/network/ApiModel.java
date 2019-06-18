@@ -1,11 +1,13 @@
 package com.ali.weathermap.data.network;
 
 
+import android.util.Log;
+
 import com.ali.weathermap.BuildConfig;
-import com.ali.weathermap.Log;
 import com.ali.weathermap.utils.NetworkUtils;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -28,8 +30,15 @@ public class ApiModel implements ApiModelListener {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
+
                 if (response.code() == 200) {
                     onFinishedListener.onFinished(response.body());
+                } else {
+                    try {
+                        onFinishedListener.onError(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

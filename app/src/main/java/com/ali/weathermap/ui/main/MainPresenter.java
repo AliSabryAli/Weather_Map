@@ -21,6 +21,10 @@ import com.ali.weathermap.modle.Forecast;
 import com.ali.weathermap.modle.Weather;
 import com.ali.weathermap.utils.Constants;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,9 @@ public class MainPresenter implements MainMvpPresenter {
                 String json = new Gson().toJson(responseObjects);
                 WeatherListResponse response = new Gson().fromJson(
                         json, WeatherListResponse.class);
+
+                Log.i(TAG, "onFinished: " + json);
+
                 wind = response.getWind();
                 weatherDetails = response.getWeatherDetails();
                 currentWeatherList = response.getCurrentWeather();
@@ -78,11 +85,23 @@ public class MainPresenter implements MainMvpPresenter {
                     weather.setIcon(currentWeather.getIcon());
                 }
                 mainView.displayDataToView(weather);
+
+            }
+
+            @Override
+            public void onError(String msg) {
+                try {
+                    JSONObject object = new JSONObject(msg);
+                    mainView.showMsg(object.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                Log.i(TAG, "onFailure: " + t.getMessage());
             }
         });
     }
@@ -98,7 +117,8 @@ public class MainPresenter implements MainMvpPresenter {
                 forecastListٌResponse = response.getList();
                 for (ForecastList forecastItem : forecastListٌResponse) {
                     forecast = new Forecast();
-                    forecast.setDate(Constants.getDate(forecastItem.getDt(), Constants.DATE_LONG));
+                    forecast.setDate(Constants.getDate(forecastItem.getDt(), Constants.DATE_2));
+                    forecast.setHours(Constants.getDate(forecastItem.getDt(), Constants.HOUR));
                     forecast.setMin(String.valueOf(Math.round(forecastItem.getMain().getTempMin())));
                     forecast.setMax(String.valueOf(Math.round(forecastItem.getMain().getTempMax())));
                     weatherStateList = forecastItem.getWeather();
@@ -111,6 +131,11 @@ public class MainPresenter implements MainMvpPresenter {
                 }
                 Log.i(TAG, "onFinished: " + forecastsList + "\n");
                 mainView.setDataToRecyclerView(forecastsList);
+            }
+
+            @Override
+            public void onError(String msg) {
+
             }
 
             @Override

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--toolbar with main_menu theme-->
+    <style name="ToolbarTheme" parent="AppTheme">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+</resources>

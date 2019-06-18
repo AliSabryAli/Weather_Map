@@ -49,6 +49,17 @@ public class WeatherListResponse {
     @SerializedName("cod")
     private Integer code;
 
+    @SerializedName("message")
+    private String msg;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public Coordinates getCoordinates() {
         return coordinates;
     }
