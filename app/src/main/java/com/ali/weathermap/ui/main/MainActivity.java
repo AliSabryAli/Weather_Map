@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
         recyclerView.setHasFixedSize(true);
         recyclerView.scrollToPosition(0);
 
-        presenter = new MainPresenter(this);
-        queries = Queries.getQueriesMap("london", "metric");
+        presenter = new MainPresenter(this, MainActivity.this);
+        queries = Queries.getQueriesMap(presenter.getCityName(), "metric");
         presenter.requestWeatherFromServer(NetworkUtils.END_POINT_WEATHER, queries);
         presenter.requestForecastFromServer(NetworkUtils.END_POINT_FORECAST, queries);
     }
@@ -106,8 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
     public void setDataToRecyclerView(List<Forecast> forecastList) {
         adapter = new ForecastAdapter(forecastList, presenter);
         recyclerView.setAdapter(adapter);
-        Log.i(TAG, "setDataToRecyclerView: " + forecastList);
-//            recyclerView.notify();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

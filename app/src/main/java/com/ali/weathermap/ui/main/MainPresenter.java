@@ -1,11 +1,14 @@
 package com.ali.weathermap.ui.main;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.ali.weathermap.data.local.pref.PreferencesHelper;
+import com.ali.weathermap.data.local.pref.PreferencesHelperModel;
 import com.ali.weathermap.data.network.ApiModel;
 import com.ali.weathermap.data.network.ApiModelListener;
 import com.ali.weathermap.data.network.LoadingImage;
@@ -20,6 +23,7 @@ import com.ali.weathermap.data.network.entity.weather.Wind;
 import com.ali.weathermap.modle.Forecast;
 import com.ali.weathermap.modle.Weather;
 import com.ali.weathermap.utils.Constants;
+import com.ali.weathermap.utils.NetworkUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -46,7 +50,9 @@ public class MainPresenter implements MainMvpPresenter {
     private Main main;
     private List<WeatherState> weatherStateList;
 
-    public MainPresenter(MainMvpView mainView) {
+    private PreferencesHelper preferencesHelper;
+
+    public MainPresenter(MainMvpView mainView, Activity activity) {
         this.mainView = mainView;
         apiModel = new ApiModel();
         weather = new Weather();
@@ -55,18 +61,25 @@ public class MainPresenter implements MainMvpPresenter {
         currentWeatherList = new ArrayList<>();
         forecastListٌResponse = new ArrayList<>();
         weatherStateList = new ArrayList<>();
+        preferencesHelper = new PreferencesHelper(activity);
+    }
+
+    public String getCityName() {
+        return preferencesHelper.getData("name", "dubai");
+    }
+
+    public void saveCityName(String name) {
+        preferencesHelper.saveData("name", name);
     }
 
     @Override
-    public void requestWeatherFromServer(String endPoint, Map<String, Object> queries) {
+    public void requestWeatherFromServer(String endPoint, final Map<String, Object> queries) {
         apiModel.getObjects(endPoint, queries, new ApiModelListener.OnFinishedListener() {
             @Override
             public void onFinished(Object responseObjects) {
                 String json = new Gson().toJson(responseObjects);
                 WeatherListResponse response = new Gson().fromJson(
                         json, WeatherListResponse.class);
-
-                Log.i(TAG, "onFinished: " + json);
 
                 wind = response.getWind();
                 weatherDetails = response.getWeatherDetails();
@@ -85,7 +98,7 @@ public class MainPresenter implements MainMvpPresenter {
                     weather.setIcon(currentWeather.getIcon());
                 }
                 mainView.displayDataToView(weather);
-
+                saveCityName((String) queries.get("q"));
             }
 
             @Override
@@ -112,9 +125,13 @@ public class MainPresenter implements MainMvpPresenter {
             @Override
             public void onFinished(Object responseObjects) {
                 String json = new Gson().toJson(responseObjects);
+                forecastListٌResponse.clear();
+                forecast = null;
+                forecastsList.clear();
                 ForecastListResponse response = new Gson().fromJson(
                         json, ForecastListResponse.class);
                 forecastListٌResponse = response.getList();
+
                 for (ForecastList forecastItem : forecastListٌResponse) {
                     forecast = new Forecast();
                     forecast.setDate(Constants.getDate(forecastItem.getDt(), Constants.DATE_2));
@@ -127,9 +144,8 @@ public class MainPresenter implements MainMvpPresenter {
                         forecast.setIcon(weatherState.getIcon());
                     }
                     forecastsList.add(forecast);
-                    Log.i(TAG, "onFinished: Description " + forecast.getDescription() + "\n");
                 }
-                Log.i(TAG, "onFinished: " + forecastsList + "\n");
+                Log.i(TAG, "onFinished: " + forecastsList);
                 mainView.setDataToRecyclerView(forecastsList);
             }
 
